@@ -1,0 +1,14 @@
+=============================================
+En caso de redirigir a un servidor apache (local), 
+se puede probar con el comando de abajo
+=============================================
+
+ng build --configuration production --base-href
+
+=============================================
+
+=============================================
+En caso de reridigir a un hosting externo
+creo que bastaria con lo siguiente:
+=============================================
+ng build --configuration production

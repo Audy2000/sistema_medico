@@ -1,0 +1,53 @@
+<h2>Tabla de Audy</h2>
+<div class="table-responsive">
+    <table class="table text-center">
+        <thead class="table-secondary">
+            <tr>
+
+                @for (column of this.tableData.columns; track $index) 
+                {
+                    <th [style.width]="column.size">{{ column.textoCabecera }}</th>
+                }
+                    <th>Acciones</th>
+            </tr>
+
+
+        </thead>
+        <tbody>
+
+
+            @for (row of this.tableData.rows; track $index)
+            {
+            <tr>
+
+                @for (column of this.tableData.columns; track $index)
+                {
+
+                <td [style.width]="column.size"> {{row[column.nombreCampo]}} </td>
+                }
+                <td>
+                    
+                    <button
+                        type="button"
+                        class="btn btn-primary m-2"
+                        (click)="editar(row[tableData.primaryKey])"
+                    >
+                    <!--Editar-->
+                        
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-danger m-2"
+                        (click)="eliminar(row[tableData.primaryKey])"
+                    >
+                        <!--Eliminar-->
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

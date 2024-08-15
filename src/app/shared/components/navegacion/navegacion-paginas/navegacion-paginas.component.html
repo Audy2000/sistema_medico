@@ -1,0 +1,33 @@
+<div class="row p-1 ">
+    <div class="col">
+        @if (this.urlNuevoRegistro) {
+            <a
+            name=""
+            id=""
+            class="btn btn-primary"
+            routerLink="{{this.urlNuevoRegistro}}"
+            role="button"
+            >Nuevo Registro</a
+        >
+        }
+        
+        @if (this.urlRegresar) {
+            <a
+            name=""
+            id=""
+            class="btn btn-outline-dark"
+            routerLink="{{this.urlRegresar}}"
+            role="button"
+            >
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            Regresar
+            </a
+        >
+        }    
+    </div>
+    
+    
+    
+    
+
+</div>
