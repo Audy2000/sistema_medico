@@ -4,6 +4,7 @@ import { SisDashboardComponent } from './pages/sistema/sis-dashboard/sis-dashboa
 import { SisLoginComponent } from './pages/sistema/sis-login/sis-login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { SisProximamenteComponent } from './pages/sistema/sis-proximamente/sis-proximamente.component';
+import { SisRegisterComponent } from './pages/sistema/sis-register/sis-register.component';
 
 export const routes: Routes = [
 
@@ -23,6 +24,11 @@ export const routes: Routes = [
     {
         path:'login',
         component:SisLoginComponent,
+        //canActivate:[authGuard],
+    },
+    {
+        path:'register',
+        component:SisRegisterComponent,
         //canActivate:[authGuard],
     },
     {
