@@ -6,13 +6,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SisErrorLogin } from '../../../core/models/sis-local-user-data';
 import { SisStorageService } from '../../../core/services/sis-storage.service';
 import { environment } from '../../../../environments/environment';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SisSweetAlertService } from '../../../shared/sis-sweet-alert.service';
 
 @Component({
   selector: 'app-sis-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './sis-login.component.html',
   styleUrl: './sis-login.component.css'
 })
