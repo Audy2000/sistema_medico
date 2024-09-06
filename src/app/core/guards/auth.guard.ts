@@ -5,7 +5,7 @@ import { SisLoginService } from '../services/sis-login.service';
 export const authGuard: CanActivateFn = (route, state) => {
   const auth = inject(SisLoginService);
   const router = inject(Router);
-  return true;
+  
   if (auth.checkIsLogin()) 
   {
     return true;

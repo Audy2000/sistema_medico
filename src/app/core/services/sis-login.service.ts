@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
+import { SisCookiesService } from './sis-cookies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class SisLoginService {
     private storage: SisStorageService,
     private router: Router,
     private http: HttpClient,
+    private cookieService:SisCookiesService,
   ) { }
 
   private loginResponse?: SisLocalUserData;
@@ -48,10 +50,16 @@ export class SisLoginService {
   checkIsLogin(): boolean {
     // Aqui se valida si el token es valido todavia
     // por ahora solo se valida que exista en el localstorage
-    if (this.storage.obtenerDato<SisLocalUserData>(environment.user_data_key) !== null) {
+    /*if (this.storage.obtenerDato<SisLocalUserData>(environment.user_data_key) !== null) {
+      return true;
+    }*/
+   
+      //voy a validar que exista la cookie
+    if(this.cookieService.isCookieExist('token')){
       return true;
     }
     return false;
+
   }
 
 

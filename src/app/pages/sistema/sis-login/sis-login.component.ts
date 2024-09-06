@@ -8,6 +8,7 @@ import { SisStorageService } from '../../../core/services/sis-storage.service';
 import { environment } from '../../../../environments/environment';
 import { Router, RouterLink } from '@angular/router';
 import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
+import { SisCookiesService } from '../../../core/services/sis-cookies.service';
 
 @Component({
   selector: 'app-sis-login',
@@ -22,6 +23,7 @@ export class SisLoginComponent {
   constructor(
     private loginService: SisLoginService,
     private storage: SisStorageService,
+    private cookiesService: SisCookiesService,
     private router: Router,
     private authGoogleService: SisGoogleAuthService
   ) { }
@@ -30,6 +32,9 @@ export class SisLoginComponent {
     usuario: new FormControl('', Validators.required),
     clave: new FormControl('', [Validators.required])
   });
+
+  check_remember = new FormControl(false)
+
 
   data_google !:any;
 
@@ -56,7 +61,13 @@ export class SisLoginComponent {
 
         next: response => {
           response.time_start = new Date();
-          this.storage.guardarDato(environment.user_data_key, response);
+
+          if(this.check_remember.value === true){
+            this.storage.guardarDato(environment.user_data_key, response);
+          }else{
+            this.storage.guardarDato(environment.user_data_key, response);
+            this.cookiesService.setSessionCookie('token', response.token);
+          }
           this.router.navigate(['/dashboard']);
           
         },
