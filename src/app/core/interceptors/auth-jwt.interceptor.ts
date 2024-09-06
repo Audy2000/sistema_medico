@@ -32,13 +32,15 @@ export const AuthJwtInterceptor: HttpInterceptorFn = (req, next) => {
 
   }
 
+  if (!/^https?:\/\//i.test(req.url)) {
+    // Clona la solicitud original y ajusta la cabecera
+    // Solo se agrega la cabeceera si la url ya tiene el formato
+    req = req.clone({
+      setHeaders: {
+        Authorization: `${data?.token_type} ${data?.token} `
+      }})
+  }
 
-  const authReq = req.clone({
-    setHeaders: {
-      Authorization: `${data?.token_type} ${data?.token} `
-    }
-  });
 
-  
-  return next(authReq);
+  return next(req);
 };

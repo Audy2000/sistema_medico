@@ -7,6 +7,7 @@ import { SisErrorLogin } from '../../../core/models/sis-local-user-data';
 import { SisStorageService } from '../../../core/services/sis-storage.service';
 import { environment } from '../../../../environments/environment';
 import { Router, RouterLink } from '@angular/router';
+import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
 
 @Component({
   selector: 'app-sis-login',
@@ -22,6 +23,7 @@ export class SisLoginComponent {
     private loginService: SisLoginService,
     private storage: SisStorageService,
     private router: Router,
+    private authGoogleService: SisGoogleAuthService
   ) { }
 
   userForm = new FormGroup({
@@ -29,6 +31,20 @@ export class SisLoginComponent {
     clave: new FormControl('', [Validators.required])
   });
 
+  data_google !:any;
+
+  ngOnInit()
+  {
+    const google_datos = this.authGoogleService.getProfile();
+    this.data_google= google_datos;
+    console.log(google_datos);
+    
+
+  }
+
+  loginGoogle(){
+    this.authGoogleService.login();
+  }
 
   login() {
 

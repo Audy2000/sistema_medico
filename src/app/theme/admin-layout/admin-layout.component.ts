@@ -3,6 +3,7 @@ import { NavbarLayoutComponent } from '../navbar-layout/navbar-layout.component'
 import { SidebarLayoutComponent } from '../sidebar-layout/sidebar-layout.component';
 import { FooterLayoutComponent } from '../footer-layout/footer-layout.component';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { SisGoogleAuthService } from '../../core/services/sis-google-auth.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -20,8 +21,14 @@ export class AdminLayoutComponent
 {
 
   constructor(
+    private googleService:SisGoogleAuthService
   ){}
-  
+  google_data!:any;
+  ngOnInit(){
+    const data = this.googleService.getProfile()
+    console.log(data);
+    
+  }
   
   // ============================================
   // Acciones dle sidebar
