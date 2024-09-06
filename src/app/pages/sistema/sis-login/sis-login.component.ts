@@ -7,7 +7,6 @@ import { SisErrorLogin } from '../../../core/models/sis-local-user-data';
 import { SisStorageService } from '../../../core/services/sis-storage.service';
 import { environment } from '../../../../environments/environment';
 import { Router, RouterLink } from '@angular/router';
-import { SisSweetAlertService } from '../../../shared/sis-sweet-alert.service';
 
 @Component({
   selector: 'app-sis-login',
@@ -23,7 +22,6 @@ export class SisLoginComponent {
     private loginService: SisLoginService,
     private storage: SisStorageService,
     private router: Router,
-    private alert : SisSweetAlertService
   ) { }
 
   userForm = new FormGroup({
@@ -47,7 +45,10 @@ export class SisLoginComponent {
           
         },
         error: error => { 
-          this.alert.error(error.error.message);
+          // Esta linea de abajo queda mientras encuentro
+          // una alernativa a sweet alert
+          alert(error.error.message);
+
           
         }
       });
