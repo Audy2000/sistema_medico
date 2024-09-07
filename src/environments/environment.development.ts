@@ -2,6 +2,6 @@ export const environment = {
     production: false,
     BASE_URL : 'http://localhost:8000/api/',
     user_data_key:'login_data',
-    is_login_key:'is_login'
-
+    is_login_key:'is_login',
+    remember_session_key:'remember'
 };

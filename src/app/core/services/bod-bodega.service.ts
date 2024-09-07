@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { BodBodega } from '../models/bod-bodega';
-import { SisStorageService } from './sis-storage.service';
-import { SisLocalUserData } from '../models/sis-local-user-data';
 import { SisGeneralResponse } from '../models/sis-general-response';
+import { SisAuthService } from './sis-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,7 @@ export class BodBodegaService {
    
   constructor(
     private http:HttpClient,
-    private storage : SisStorageService
+    private authService: SisAuthService
   ) { }
 
   get(periodo:string, codigo:number) : Observable<SisGeneralResponse<BodBodega>>
@@ -28,7 +26,7 @@ export class BodBodegaService {
   getAll():Observable<SisGeneralResponse<BodBodega[]>>
   {
     
-    const periodo = this.storage.obtenerDato<SisLocalUserData>(environment.user_data_key)?.periodo;
+    const periodo = this.authService.getPeriodo;
    return this.http.get<SisGeneralResponse<BodBodega[]>>(`${this.url}/${periodo}`);
   }
 

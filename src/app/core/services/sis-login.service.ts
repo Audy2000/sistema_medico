@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SisLocalUserData } from '../models/sis-local-user-data';
 import { SisLoginRequest } from '../models/sis-login-request';
-import { SisStorageService } from './sis-storage.service';
 import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { SisCookiesService } from './sis-cookies.service';
@@ -17,8 +15,6 @@ export class SisLoginService {
 
 
   constructor(
-    private storage: SisStorageService,
-    private router: Router,
     private http: HttpClient,
     private cookieService:SisCookiesService,
   ) { }
@@ -31,7 +27,7 @@ export class SisLoginService {
     // Devuelve: token, usuario, periodo, roles y permisos
     // Esta data se guarda en local storage
 
-    //return this.http.post<SisLocalUserData>(this.url + 'login', loginRequest);
+    return this.http.post<SisLocalUserData>(this.url + 'login', loginRequest);
     
     // Descomentar la linea de abajo para pruebas sin api
     return of<SisLocalUserData>(this.prueba_login);
@@ -47,6 +43,7 @@ export class SisLoginService {
     roles : [] 
   }
 
+  // Creo que este se puede eliminar
   checkIsLogin(): boolean {
     // Aqui se valida si el token es valido todavia
     // por ahora solo se valida que exista en el localstorage

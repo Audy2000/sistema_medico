@@ -11,20 +11,22 @@ export class SisCookiesService {
   ) { }
 
   // Configurar una cookie de sesión (sin fecha de expiración)
-  setSessionCookie(name: string, value: string): void {
-    this.cookieService.set(name, value); // No se especifica la fecha de expiración
+  setSessionCookie(name: string, value: any): void {
+    this.cookieService.set(name, JSON.stringify(value)); // No se especifica la fecha de expiración
   }
 
-   // Guarda un valor en una cookie, por defecto es de sesion
-   // pero prefiero utilizar la funcion de arriba
-   // por eso comento esta
-   private setCookie(name: string, value: string, expireDays: number = 0): void {
+  // Guarda un valor en una cookie, por defecto es de sesion
+  // pero prefiero utilizar la funcion de arriba
+  // por eso comento esta
+  private setCookie(name: string, value: string, expireDays: number = 0): void {
     this.cookieService.set(name, value, expireDays);
   }
 
   // Recupera un valor de una cookie
-  getCookie(name: string): string | null {
-    return this.cookieService.get(name);
+  getCookie<T>(name: string): T | null {
+    const item = this.cookieService.get(name);
+    return item ? JSON.parse(item) as T : null;
+
   }
 
   // Elimina una cookie

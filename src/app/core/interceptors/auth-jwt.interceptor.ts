@@ -1,14 +1,14 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { SisStorageService } from '../services/sis-storage.service';
 import { environment } from '../../../environments/environment';
 import { SisLocalUserData } from '../models/sis-local-user-data';
 import { SisJwtService } from '../services/sis-jwt.service';
+import { SisAuthService } from '../services/sis-auth.service';
 
 export const AuthJwtInterceptor: HttpInterceptorFn = (req, next) => {
-  let storage = inject(SisStorageService);
+  let auth = inject(SisAuthService);
   let jwtService = inject(SisJwtService);
-  let data = storage.obtenerDato<SisLocalUserData>(environment.user_data_key);
+  let data = auth.getUserData;
 
   // Valida que el token sea valido
   if (!jwtService.isTokenValid(data as SisLocalUserData) && !jwtService.estaRefrescando) 

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SisStorageService } from './sis-storage.service';
 import { SisLocalUserData, SisRefreshToken } from '../models/sis-local-user-data';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SisAuthService } from './sis-auth.service';
 
 
 @Injectable({
@@ -17,8 +16,8 @@ export class SisJwtService {
 
 
   constructor(
-    private storage: SisStorageService,
-    private http:HttpClient
+    private http:HttpClient,
+    private authService : SisAuthService,
   ) { }
 
   
@@ -29,7 +28,7 @@ export class SisJwtService {
     oldData.token_type = newData.token_type;
     oldData.time_start = new Date();
     // Se guarda en localstorage
-    this.storage.guardarDato(environment.user_data_key,oldData);
+    this.authService.setNewTokenRefresh(oldData);
 
     // Se desactiva, para poder refrecar denuevo
     this.estaRefrescando = false; 

@@ -2,13 +2,9 @@ import { Component } from '@angular/core';
 import { SisLoginService } from '../../../core/services/sis-login.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SisLoginRequest } from '../../../core/models/sis-login-request';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SisErrorLogin } from '../../../core/models/sis-local-user-data';
-import { SisStorageService } from '../../../core/services/sis-storage.service';
-import { environment } from '../../../../environments/environment';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
-import { SisCookiesService } from '../../../core/services/sis-cookies.service';
+import { SisAuthService } from '../../../core/services/sis-auth.service';
 
 @Component({
   selector: 'app-sis-login',
@@ -22,10 +18,7 @@ export class SisLoginComponent {
 
   constructor(
     private loginService: SisLoginService,
-    private storage: SisStorageService,
-    private cookiesService: SisCookiesService,
-    private router: Router,
-    private authGoogleService: SisGoogleAuthService
+    private authService: SisAuthService,
   ) { }
 
   userForm = new FormGroup({
@@ -33,53 +26,36 @@ export class SisLoginComponent {
     clave: new FormControl('', [Validators.required])
   });
 
-  check_remember = new FormControl(false)
+  check_remember = new FormControl(false) // Inicia en false
 
 
-  data_google !:any;
+  data_google !: any;
 
-  ngOnInit()
-  {
-    const google_datos = this.authGoogleService.getProfile();
-    this.data_google= google_datos;
-    console.log(google_datos);
-    
-
+  ngOnInit() {
+   
   }
 
-  loginGoogle(){
-    this.authGoogleService.login();
+  loginGoogle() {
+    
+    this.authService.startGoogleSession();
   }
 
   login() {
 
     if (this.userForm.valid) {
       const formulario = this.userForm.value as SisLoginRequest;
+      const remember = this.check_remember.value as boolean;
 
-     
       this.loginService.login(formulario).subscribe({
 
-        next: response => {
-          response.time_start = new Date();
-
-          if(this.check_remember.value === true){
-            this.storage.guardarDato(environment.user_data_key, response);
-          }else{
-            this.storage.guardarDato(environment.user_data_key, response);
-            this.cookiesService.setSessionCookie('token', response.token);
-          }
-          this.router.navigate(['/dashboard']);
-          
-        },
-        error: error => { 
+        next: response => this.authService.startSession(response, remember),
+        error: error => {
           // Esta linea de abajo queda mientras encuentro
           // una alernativa a sweet alert
           alert(error.error.message);
-
-          
         }
       });
-       
+
     }
   }
 
