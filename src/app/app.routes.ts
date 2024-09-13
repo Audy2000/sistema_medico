@@ -17,6 +17,7 @@ export const routes: Routes = [
         children:[
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path:'dashboard', component:SisDashboardComponent },
+            { path:'administracion', loadChildren:()=> import ('./pages/administracion/administracion.routes').then(x => x.administracionRoutes) },
             { path:'proximamente', component:SisProximamenteComponent },
            
         ]
@@ -35,7 +36,6 @@ export const routes: Routes = [
     {
         path:'OAuth/aluve/google',
         component:GoogleOauthPageComponent,
-        //canActivate:[authGuard],
     },
     {
         path:'**',

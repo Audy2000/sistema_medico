@@ -80,25 +80,26 @@
                                         <button class="btn btn-primary btn-block" href="login.html">
                                             Create Account
                                         </button>
+
+                                        <hr>
+                                        <button (click)="starWithGoogle()" href="index.html" class="btn btn-google btn-user btn-block">
+                                            <img src="assets/img/logo-google.svg" alt="">
+                                            <span class="mx-2">Register with Google</span>
+                                        </button>
                                     </div>
                                 </div>
 
 
 
-                                <hr>
-                                <div class="text-center">
-                                    <button (click)="starWithGoogle()" href="index.html" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-google fa-fw text-danger"></i> Register with Google
-                                    </button>
-                                </div>
+                               
 
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a class="small" routerLink="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" routerLink="/login">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

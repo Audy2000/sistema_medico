@@ -23,10 +23,9 @@ export class SidebarLayoutComponent {
   inventario_definiciones_icon =this.icono_definiciones;
   inventario_definiciones_items: MenuItemLink[] =[
     {
-      nombre: 'Item',
-      ruta: '/inventario/bodega',
-      modulo: 'inventario',
-      categoria: 'definiciones'
+      nombre: 'Validacion de Médicos',
+      ruta: '/administracion/valida-usuario-medico/',
+      modulo: 'administracion',
     },
     
   ];

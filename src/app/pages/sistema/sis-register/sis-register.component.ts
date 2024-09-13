@@ -6,11 +6,12 @@ import { SisRegisterRequest } from '../../../core/requests/sis-register-request'
 import { SisAuthService } from '../../../core/services/sis-auth.service';
 import { environment } from '../../../../environments/environment';
 import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sis-register',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, RouterLink],
   templateUrl: './sis-register.component.html',
   styleUrl: './sis-register.component.css'
 })
