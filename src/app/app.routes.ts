@@ -5,6 +5,7 @@ import { SisLoginComponent } from './pages/sistema/sis-login/sis-login.component
 import { authGuard } from './core/guards/auth.guard';
 import { SisProximamenteComponent } from './pages/sistema/sis-proximamente/sis-proximamente.component';
 import { SisRegisterComponent } from './pages/sistema/sis-register/sis-register.component';
+import { GoogleOauthPageComponent } from './pages/sistema/google-oauth-page/google-oauth-page.component';
 
 export const routes: Routes = [
 
@@ -29,6 +30,11 @@ export const routes: Routes = [
     {
         path:'register',
         component:SisRegisterComponent,
+        //canActivate:[authGuard],
+    },
+    {
+        path:'OAuth/aluve/google',
+        component:GoogleOauthPageComponent,
         //canActivate:[authGuard],
     },
     {

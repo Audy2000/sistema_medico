@@ -5,6 +5,7 @@ import { SisLoginRequest } from '../../../core/models/sis-login-request';
 import { RouterLink } from '@angular/router';
 import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
 import { SisAuthService } from '../../../core/services/sis-auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sis-login',
@@ -19,6 +20,7 @@ export class SisLoginComponent {
   constructor(
     private loginService: SisLoginService,
     private authService: SisAuthService,
+    private googleAuth: SisGoogleAuthService
   ) { }
 
   userForm = new FormGroup({
@@ -28,16 +30,24 @@ export class SisLoginComponent {
 
   check_remember = new FormControl(false) // Inicia en false
 
+  showGoogleData(){
+    const data = this.googleAuth.getProfile();
+    
+    console.log(data);
+    
+  }
 
   data_google !: any;
 
   ngOnInit() {
-   
+   //this.authService.srtartGoogleConfig();
   }
 
   loginGoogle() {
     
-    this.authService.startGoogleSession();
+    //this.authService.startGoogleSession();
+    sessionStorage.setItem(environment.isLogin,true+'')
+    this.googleAuth.login();
   }
 
   login() {

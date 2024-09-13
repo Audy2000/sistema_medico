@@ -1,0 +1,28 @@
+<div class="container" style="height: 100vh;">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+        <div class="text-center">
+            <!-- Contenido del div centrado -->
+            <div class="p-5 mb-4 bg-light rounded-3">
+                <div class="container-fluid py-5">
+                    <h1 class="display-5 fw-bold"> {{this.nombre_sistema}} </h1>
+                    <p class="col-md fs-4">
+                        Se está sincronizando su Información
+                        <i class="fa-solid fa-exclamation fa-fade"></i>
+                    </p>
+                        <i class="fas fa-sync fa-3x fa-spin"></i>
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="this.showGoogleData()"
+                        >
+                            GoogleData
+                        </button>
+                        
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>

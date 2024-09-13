@@ -5,6 +5,7 @@ import { SisCookiesService } from './sis-cookies.service';
 import { SisStorageService } from './sis-storage.service';
 import { Router } from '@angular/router';
 import { SisGoogleAuthService } from './sis-google-auth.service';
+import { aluve_fakeResponse_UserData } from './sis-login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ export class SisAuthService {
     private storage: SisStorageService,
     private cookiesService: SisCookiesService,
     private router: Router,
-    private authGoogleService: SisGoogleAuthService,
-  ) { }
+    //private authGoogleService: SisGoogleAuthService,
+  ) { 
+    
+  }
   // ===============================================================
   //              Variables privadas
   // ===============================================================
@@ -69,6 +72,7 @@ export class SisAuthService {
   // ===============================================================
 
   startSession(response: SisLocalUserData, remember: boolean = false) {
+    
     response.time_start = new Date();
     if (remember === true) {
       this.storage.guardarDato(environment.user_data_key, response);
@@ -121,9 +125,5 @@ export class SisAuthService {
   //              CONFIGURACION GOOGLE
   // ===============================================================
 
-  startGoogleSession() {
-    this.authGoogleService.login();
-  }
-
-
+ 
 }

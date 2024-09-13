@@ -6,6 +6,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { SisCookiesService } from './sis-cookies.service';
 
+export const aluve_fakeResponse_UserData = (username:string='Usuario Prueba') => {
+  return {
+    token:'dfadfasgadsvzdrvsrve',
+    token_type:'bearer',
+    time_start: new Date(),
+    expires_in:159, // segundos
+    username: username,
+    periodo:'001',
+    roles : []
+  }
+   
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,23 +38,14 @@ export class SisLoginService {
     // Aqui se hace la peticion a la api
     // para devolver el objeto
     // Devuelve: token, usuario, periodo, roles y permisos
-    // Esta data se guarda en local storage
-
-    return this.http.post<SisLocalUserData>(this.url + 'login', loginRequest);
+    
+    //return this.http.post<SisLocalUserData>(this.url + 'login', loginRequest);
     
     // Descomentar la linea de abajo para pruebas sin api
-    return of<SisLocalUserData>(this.prueba_login);
+    return of<SisLocalUserData>(aluve_fakeResponse_UserData());
   }
 
-  prueba_login: SisLocalUserData = {
-    token:'dfadfasgadsvzdrvsrve',
-    token_type:'bearer',
-    time_start: new Date(),
-    expires_in:159, // segundos
-    username:'audy pruebas',
-    periodo:'001',
-    roles : [] 
-  }
+  
 
   // Creo que este se puede eliminar
   checkIsLogin(): boolean {

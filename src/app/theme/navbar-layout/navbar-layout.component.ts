@@ -11,7 +11,9 @@ import { SisAuthService } from '../../core/services/sis-auth.service';
 })
 export class NavbarLayoutComponent {
 
+  
   @Output() ocultarSidebar = new EventEmitter<boolean>();
+  nombreUsuario = this.authService.getUserData.username;
 
   constructor(
     private authService: SisAuthService,

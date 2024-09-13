@@ -5,18 +5,26 @@ import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
   providedIn: 'root'
 })
 export class SisGoogleAuthService {
-
+  /*
+  Fecha: 24-09-2024
+  Nota: Este constructor comentado inicializa la configuracion
+        y genera un bucle por el servicio de auth
+  Accion: La configuracion la voy a iniciar en el componente login
+          en el metodoNgOnInit
+    constructor(
+      private oAuthService: OAuthService
+    ) { this.initLogin(); } // Se llama el metodo en el constructor para que se ejecute
+  */
   constructor(
     private oAuthService: OAuthService
-  ) { this.initLogin(); } // Se llama el metodo en el constructor para que se ejecute
-
+  ) {  this.initLogin(); } // Se llama el metodo en el constructor para que se ejecute
   initLogin() {
     const config: AuthConfig = {
-      issuer:'https://accounts.google.com',
+      issuer: 'https://accounts.google.com',
       strictDiscoveryDocumentValidation: false, // para la seguridad
-      clientId:'743963770493-297ktdunaebfj5le4tf60om5hgrc4o2s.apps.googleusercontent.com', // Se obtiene desde la consola de google
+      clientId: '743963770493-297ktdunaebfj5le4tf60om5hgrc4o2s.apps.googleusercontent.com', // Se obtiene desde la consola de google
       //redirectUri: window.location.origin + '/dashboard', // Redirige despues del login
-      redirectUri: window.location.origin, // Redirige despues del login
+      redirectUri: window.location.origin+'/OAuth/aluve/google', // Redirige despues del login
       scope: 'openid profile email', // Extrae info de la cuenta de google
       //showDebugInformation: true
     }
@@ -34,7 +42,8 @@ export class SisGoogleAuthService {
 
   login() {
     // Continua el flujo de autenticacion
-    this.oAuthService.initImplicitFlow();
+    //this.oAuthService.initImplicitFlow(); // con este finionaba
+    this.oAuthService.initLoginFlow();
   }
 
   logout() {
@@ -42,11 +51,11 @@ export class SisGoogleAuthService {
     this.oAuthService.logOut();
   }
 
-  getProfile(){
+  getProfile() {
     return this.oAuthService.getIdentityClaims();
   }
 
-  getToken(){
+  getToken() {
     return this.oAuthService.getAccessToken();
   }
 

@@ -20,15 +20,8 @@ import { SisGoogleAuthService } from '../../core/services/sis-google-auth.servic
 export class AdminLayoutComponent
 {
 
-  constructor(
-    private googleService:SisGoogleAuthService
-  ){}
-  google_data!:any;
-  ngOnInit(){
-    const data = this.googleService.getProfile()
-    console.log(data);
-    
-  }
+ 
+  
   
   // ============================================
   // Acciones dle sidebar
