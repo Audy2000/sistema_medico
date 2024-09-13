@@ -1,0 +1,7 @@
+.imagen-ajustada {
+    width: 100%;    /* La imagen ocupará todo el ancho del contenedor */
+    height: 100%;   /* La imagen también ocupará todo el alto */
+    object-fit: cover; /* Mantiene la proporción y recorta el excedente */
+    border-radius: 20px;
+    padding: 2%;
+}

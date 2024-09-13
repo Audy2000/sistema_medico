@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { SisLoginService } from '../../../core/services/sis-login.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { SisLoginRequest } from '../../../core/models/sis-login-request';
+import { SisLoginRequest } from '../../../core/requests/sis-login-request';
 import { RouterLink } from '@angular/router';
 import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
-import { SisAuthService } from '../../../core/services/sis-auth.service';
 import { environment } from '../../../../environments/environment';
+import { SisLoginService } from '../../../core/services/sis-login.service';
+import { SisAuthService } from '../../../core/services/sis-auth.service';
 
 @Component({
   selector: 'app-sis-login',
@@ -40,12 +40,11 @@ export class SisLoginComponent {
   data_google !: any;
 
   ngOnInit() {
-   //this.authService.srtartGoogleConfig();
+   
   }
 
   loginGoogle() {
     
-    //this.authService.startGoogleSession();
     sessionStorage.setItem(environment.isLogin,true+'')
     this.googleAuth.login();
   }

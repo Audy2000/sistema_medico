@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
-import { aluve_fakeResponse_UserData } from '../../../core/services/sis-login.service';
 import { SisAuthService } from '../../../core/services/sis-auth.service';
+import { aluve_fakeResponse_UserData } from '../../../core/services/sis-login.service';
+import { Router } from '@angular/router';
+
 /**
  * Fecha: 12-09-2024
  * @author Audy Wagner Lucas Vera
@@ -22,7 +24,8 @@ export class GoogleOauthPageComponent {
 
   constructor(
     private googleAuth : SisGoogleAuthService,
-    private aluveAuth : SisAuthService
+    private aluveAuth : SisAuthService,
+    private router : Router
   ){}
 
   showGoogleData(){
@@ -35,16 +38,21 @@ export class GoogleOauthPageComponent {
 
   ngOnInit(){
     const isLogin = sessionStorage.getItem(environment.isLogin) as boolean | null
+    const fromRegister = sessionStorage.getItem(environment.isRegister) as boolean | null
 
-    if(isLogin!==null && isLogin!==true){
-      console.log('viene del login');
+    if(isLogin!==null){
       const data_usuario = this.googleAuth.getProfile();
       
       const info_login = aluve_fakeResponse_UserData(data_usuario['name'])
       // por defecto cuando inicie sesion con google, la sesion quede almacenada
       this.aluveAuth.startSession(info_login,true)
-      
-      
+    }
+
+    if(fromRegister!==null){
+      console.log('viene del registro de usuario');
+      // redirige a la pagina de registro de sesion
+      // consulta la data de google y la pone en el form
+      this.router.navigate(['/register']);
     }
   }
 

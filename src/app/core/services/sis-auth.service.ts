@@ -86,6 +86,9 @@ export class SisAuthService {
 
 
   endSession(): void {
+    sessionStorage.removeItem(environment.isRegister);
+    sessionStorage.removeItem(environment.isLogin);
+    this.storage.eliminarDato(environment.remember_session_key)
     this.storage.eliminarDato(environment.user_data_key)
     this.cookiesService.deleteCookie(environment.user_data_key)
     this.userData;
