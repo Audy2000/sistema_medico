@@ -43,7 +43,7 @@ export class GoogleOauthPageComponent {
     if(isLogin!==null){
       const data_usuario = this.googleAuth.getProfile();
       
-      const info_login = aluve_fakeResponse_UserData(data_usuario['name'])
+      const info_login = aluve_fakeResponse_UserData(data_usuario['given_name'])
       // por defecto cuando inicie sesion con google, la sesion quede almacenada
       this.aluveAuth.startSession(info_login,true)
     }
