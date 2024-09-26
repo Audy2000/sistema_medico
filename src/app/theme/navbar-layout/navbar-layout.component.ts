@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SisAuthService } from '../../core/services/auth-services/sis-auth.service';
+import { SisGoogleAuthService } from '../../core/services/auth-services/sis-google-auth.service';
 
 @Component({
   selector: 'app-navbar-layout',
@@ -17,10 +18,12 @@ export class NavbarLayoutComponent {
 
   constructor(
     private authService: SisAuthService,
+    private googleService: SisGoogleAuthService,
   ) { }
 
   logout() {
     this.authService.endSession();
+    this.googleService.logout();
   }
 
 

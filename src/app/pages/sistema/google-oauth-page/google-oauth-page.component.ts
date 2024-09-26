@@ -23,40 +23,43 @@ export class GoogleOauthPageComponent {
   nombre_sistema: string = environment.NOMBRE_SISTEMA;
 
   constructor(
-    private googleAuth : SisGoogleAuthService,
-    private aluveAuth : SisAuthService,
-    private router : Router
-  ){}
+    private googleAuth: SisGoogleAuthService,
+    private aluveAuth: SisAuthService,
+    private router: Router
+  ) { }
 
-  showGoogleData(){
+  showGoogleData() {
     const data = this.googleAuth.getProfile();
-    
+
     console.log(data);
-    
+
   }
 
 
-  ngOnInit(){
-
-    
+  ngOnInit() {
     const isLogin = sessionStorage.getItem(environment.isLogin) as boolean | null
     const fromRegister = sessionStorage.getItem(environment.isRegister) as boolean | null
-    
-    const data_usuario = this.googleAuth.getProfile();
-    sessionStorage.setItem(environment.google_data,JSON.stringify(data_usuario))    
-    if(isLogin!==null){
-      
-      const info_login = aluve_fakeResponse_UserData(data_usuario['given_name'])
-      // por defecto cuando inicie sesion con google, la sesion quede almacenada
-      this.aluveAuth.startSession(info_login,true)
-    }
+    setTimeout(() => { }, 1000)
+    const data_usuario = this.googleAuth.getProfile1().subscribe({
+      next: data => {
+        sessionStorage.setItem(environment.google_data, JSON.stringify(data))
+        if (isLogin !== null) {
+          sessionStorage.removeItem(environment.isLogin) // Se elimina el session storage y inicia sesion
+          const info_login = aluve_fakeResponse_UserData(data['given_name'])
+          // por defecto cuando inicie sesion con google, la sesion quede almacenada
+          this.aluveAuth.startSession(info_login, true)
+        }
 
-    if(fromRegister!==null){
-      console.log('viene del registro de usuario');
-      // redirige a la pagina de registro de sesion
-      // consulta la data de google y la pone en el form
-      this.router.navigate(['/register']);
-    }
+        if (fromRegister !== null) {
+          console.log('viene del registro de usuario');
+          // redirige a la pagina de registro de sesion
+          // consulta la data de google y la pone en el form
+          this.router.navigate(['/register']);
+        }
+      }
+    });
+
+
   }
 
 }

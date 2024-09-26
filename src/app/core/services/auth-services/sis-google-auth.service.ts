@@ -57,6 +57,21 @@ export class SisGoogleAuthService {
     return this.oAuthService.getIdentityClaims();
   }
 
+  getProfile1(): Observable<any> {
+    return new Observable(observer => {
+      const checkUserInfo = () => {
+        if (this.oAuthService.hasValidAccessToken()) {
+          observer.next(this.oAuthService.getIdentityClaims());
+          observer.complete();
+        } else {
+          // Si no hay token, intenta nuevamente después de un breve retraso
+          setTimeout(checkUserInfo, 100); // Intenta cada 100 ms
+        }
+      };
+      checkUserInfo();
+    });
+  }
+
   getToken() {
     return this.oAuthService.getAccessToken();
   }
