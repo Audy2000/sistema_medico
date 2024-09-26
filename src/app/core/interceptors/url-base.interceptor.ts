@@ -12,7 +12,6 @@ export const urlBaseInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // Imprime la URL modificada en la consola para depuración
-  console.log(req.url);
   
   // Pasa la solicitud al siguiente manejador
   return next(req);

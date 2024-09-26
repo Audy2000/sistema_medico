@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Tabla1Component } from '../../../shared/components/tablas/tabla1/tabla1.component';
 import { TableData } from '../../../shared/components/tablas/TablaModel';
-import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
+import { SisGoogleAuthService } from '../../../core/services/auth-services/sis-google-auth.service';
 
 @Component({
   selector: 'app-sis-dashboard',

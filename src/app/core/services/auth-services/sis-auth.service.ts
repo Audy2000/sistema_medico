@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { SisLocalUserData } from '../models/sis-local-user-data';
-import { environment } from '../../../environments/environment';
-import { SisCookiesService } from './sis-cookies.service';
+import { SisLocalUserData } from '../../models/sis-local-user-data';
+import { environment } from '../../../../environments/environment';
+import { SisCookiesService } from '../config-services/sis-cookies.service';
 import { SisStorageService } from './sis-storage.service';
 import { Router } from '@angular/router';
 import { SisGoogleAuthService } from './sis-google-auth.service';
-import { aluve_fakeResponse_UserData } from './sis-login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -124,9 +123,5 @@ export class SisAuthService {
     return false;
   }
 
-  // ===============================================================
-  //              CONFIGURACION GOOGLE
-  // ===============================================================
-
- 
+  
 }

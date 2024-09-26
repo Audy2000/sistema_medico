@@ -2,8 +2,8 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { SisLocalUserData } from '../models/sis-local-user-data';
-import { SisJwtService } from '../services/sis-jwt.service';
-import { SisAuthService } from '../services/sis-auth.service';
+import { SisJwtService } from '../services/auth-services/sis-jwt.service';
+import { SisAuthService } from '../services/auth-services/sis-auth.service';
 
 export const AuthJwtInterceptor: HttpInterceptorFn = (req, next) => {
   let auth = inject(SisAuthService);

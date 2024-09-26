@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
-import { SisAuthService } from '../../../core/services/sis-auth.service';
-import { aluve_fakeResponse_UserData } from '../../../core/services/sis-login.service';
+import { SisGoogleAuthService } from '../../../core/services/auth-services/sis-google-auth.service';
+import { SisAuthService } from '../../../core/services/auth-services/sis-auth.service';
+import { aluve_fakeResponse_UserData } from '../../../core/services/auth-services/sis-login.service';
 import { Router } from '@angular/router';
 
 /**
@@ -37,11 +37,14 @@ export class GoogleOauthPageComponent {
 
 
   ngOnInit(){
+
+    
     const isLogin = sessionStorage.getItem(environment.isLogin) as boolean | null
     const fromRegister = sessionStorage.getItem(environment.isRegister) as boolean | null
-
+    
+    const data_usuario = this.googleAuth.getProfile();
+    sessionStorage.setItem(environment.google_data,JSON.stringify(data_usuario))    
     if(isLogin!==null){
-      const data_usuario = this.googleAuth.getProfile();
       
       const info_login = aluve_fakeResponse_UserData(data_usuario['given_name'])
       // por defecto cuando inicie sesion con google, la sesion quede almacenada

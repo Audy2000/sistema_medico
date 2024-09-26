@@ -1,6 +1,6 @@
 export interface SisRegisterRequest {
     cedula : string;
-    fecha_nacimiento : string;
+    fecha_nacimiento : Date | undefined;
     nombres : string;
     apellidos : string;
     email : string;

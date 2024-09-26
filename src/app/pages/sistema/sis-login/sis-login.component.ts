@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SisLoginRequest } from '../../../core/requests/sis-login-request';
 import { RouterLink } from '@angular/router';
-import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
+import { SisGoogleAuthService } from '../../../core/services/auth-services/sis-google-auth.service';
 import { environment } from '../../../../environments/environment';
-import { SisLoginService } from '../../../core/services/sis-login.service';
-import { SisAuthService } from '../../../core/services/sis-auth.service';
+import { SisLoginService } from '../../../core/services/auth-services/sis-login.service';
+import { SisAuthService } from '../../../core/services/auth-services/sis-auth.service';
 
 @Component({
   selector: 'app-sis-login',

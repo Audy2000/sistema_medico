@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { SisCookiesService } from './sis-cookies.service';
-import { SisLocalUserData } from '../models/sis-local-user-data';
-import { SisLoginRequest } from '../requests/sis-login-request';
+import { environment } from '../../../../environments/environment';
+import { SisCookiesService } from '../config-services/sis-cookies.service';
+import { SisLocalUserData } from '../../models/sis-local-user-data';
+import { SisLoginRequest } from '../../requests/sis-login-request';
 
 export const aluve_fakeResponse_UserData = (username:string='Usuario Prueba') : SisLocalUserData => {
   return {

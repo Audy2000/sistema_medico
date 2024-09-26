@@ -3,7 +3,7 @@ import { NavbarLayoutComponent } from '../navbar-layout/navbar-layout.component'
 import { SidebarLayoutComponent } from '../sidebar-layout/sidebar-layout.component';
 import { FooterLayoutComponent } from '../footer-layout/footer-layout.component';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { SisGoogleAuthService } from '../../core/services/sis-google-auth.service';
+import { SisGoogleAuthService } from '../../core/services/auth-services/sis-google-auth.service';
 
 @Component({
   selector: 'app-admin-layout',

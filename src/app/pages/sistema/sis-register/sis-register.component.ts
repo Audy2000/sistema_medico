@@ -1,12 +1,13 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SisRegisterService } from '../../../core/services/sis-register.service';
+import { SisRegisterService } from '../../../core/services/auth-services/sis-register.service';
 import { SisRegisterRequest } from '../../../core/requests/sis-register-request';
-import { SisAuthService } from '../../../core/services/sis-auth.service';
+import { SisAuthService } from '../../../core/services/auth-services/sis-auth.service';
 import { environment } from '../../../../environments/environment';
-import { SisGoogleAuthService } from '../../../core/services/sis-google-auth.service';
+import { SisGoogleAuthService } from '../../../core/services/auth-services/sis-google-auth.service';
 import { RouterLink } from '@angular/router';
+import { GoogleAuthResponse } from '../../../core/responses/google-auth-response';
 
 @Component({
   selector: 'app-sis-register',
@@ -16,6 +17,19 @@ import { RouterLink } from '@angular/router';
   styleUrl: './sis-register.component.css'
 })
 export class SisRegisterComponent {
+  
+  google_data! : GoogleAuthResponse;
+  temp_user_data ! : SisRegisterRequest;
+
+  async consultaInfoPersona() {
+    
+    
+    const cedula = this.miFormulario.get('cedula')?.value;  
+    const info = await this.registerService.getInfoPersona(cedula);
+    const formCreado= this.createForm(info.apellidos,info.nombres,'',cedula,info.fechaNacimiento);
+    this.miFormulario.setValue(formCreado);
+
+  }
   
 
   miFormulario: FormGroup = this.fb.group({
@@ -50,21 +64,45 @@ export class SisRegisterComponent {
     return '';
   }
 
+  createForm(apellidos:string, nombres:string, email:string ='', cedula:string, fecha_nacimiento:Date|undefined){
+    const formRequest : SisRegisterRequest ={
+      apellidos : apellidos,
+      nombres : nombres,
+      email : email,
+      cedula :cedula,
+      fecha_nacimiento: fecha_nacimiento,
+      confirm_password:'',
+      password:''
+    }
+    return formRequest;
+  }
+
   ngOnInit(){
     const fromGoogleRegister = sessionStorage.getItem(environment.isRegister)
+    
     if(fromGoogleRegister){
-      const data_google = this.googleAuth.getProfile();
-      const request_incomplete : SisRegisterRequest ={
-        apellidos : data_google['family_name'],
-        nombres : data_google['given_name'],
-        email : data_google['email'],
-        cedula :'',
-        confirm_password:'',
-        fecha_nacimiento: '',
-        password:''
-      }
+      sessionStorage.removeItem(environment.isRegister)
+      const data_google = sessionStorage.getItem(environment.google_data);
+      const temp_data = sessionStorage.getItem('save_temp_user_data');
 
-      this.miFormulario.setValue(request_incomplete);
+      if(temp_data){
+        this.temp_user_data = JSON.parse(temp_data) as SisRegisterRequest
+      }
+      
+      if(data_google){
+        this.google_data = JSON.parse(data_google) as GoogleAuthResponse
+      }
+      
+      const formLleno = this.createForm(
+        this.temp_user_data.apellidos,
+        this.temp_user_data.nombres,
+        this.google_data.email,
+        this.temp_user_data.cedula,
+        this.temp_user_data.fecha_nacimiento
+      )
+
+      this.miFormulario.setValue(formLleno)
+
     }
   }
 
@@ -81,8 +119,29 @@ export class SisRegisterComponent {
   }
 
 
+  /**
+   * Fecha: 25/09/2024
+   * Primero Hay que validar que el usuario haya colocado la cedula, 
+   * significa que ya ha llenado los otros campos como la fecha de nacimiento y nombres
+   * Si este campo está incompleto, se manda una alerta que tiene que llenarlo
+   * ------------------------------------------------------------------------------------
+   * En el codigo se configura el sessionStorage, para que cuando regrese a esta pagina
+   * de registro, se sepa que ya viene de autenticarse con google y puede obtener la información
+   * De la cuenta de google se obtiene solamente (por ahora), la foto y el email
+   * de ahi se retorna para que coloque una contrasenia.
+   * 
+   */
   starWithGoogle() {
-   sessionStorage.setItem(environment.isRegister,'true');
+   
+    const cedula = this.miFormulario.get('cedula')?.value;
+    if(!cedula){
+      alert('Debe ingresar primero su Cedula y buscar sus datos')
+      return;
+    }
+    
+
+    sessionStorage.setItem(environment.isRegister,'true');
+    sessionStorage.setItem('save_temp_user_data',JSON.stringify(this.miFormulario.value));
     this.googleAuth.login();
   }
 }

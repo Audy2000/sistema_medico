@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, output } from '@angular/core';
 import { Router } from '@angular/router';
-import { SisAuthService } from '../../core/services/sis-auth.service';
+import { SisAuthService } from '../../core/services/auth-services/sis-auth.service';
 
 @Component({
   selector: 'app-navbar-layout',

@@ -19,14 +19,28 @@
                             </div>
                             <form [formGroup]="miFormulario" (submit)="onSubmit()">
                                 <div class="row mb-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-floating mb-3 mb-md-0">
+                                           
                                             <input class="form-control {{getControlClass('cedula')}}"
                                                 formControlName="cedula" id="inputNoCedula" type="text"
-                                                placeholder="Enter your first name" required>
+                                                placeholder="Enter your first name" 
+                                                
+                                                required>
                                             <label for="inputNoCedula">No. Cedula</label>
-
+                                            
                                         </div>
+                                    </div>
+                                    <!-- Aqui viene el boton de busqueda de persona -->
+                                    <div class="col-md-1">
+                                        <button
+                                                type="button"
+                                                class="btn btn-success"
+                                                (click)="consultaInfoPersona()"
+                                            >
+                                                <!--Boton busqueda -->
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">

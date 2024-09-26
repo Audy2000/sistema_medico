@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BodBodega } from '../models/bod-bodega';
 import { SisGeneralResponse } from '../models/sis-general-response';
-import { SisAuthService } from './sis-auth.service';
+import { SisAuthService } from './auth-services/sis-auth.service';
 
 @Injectable({
   providedIn: 'root'

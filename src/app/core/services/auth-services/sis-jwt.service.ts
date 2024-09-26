@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SisLocalUserData, SisRefreshToken } from '../models/sis-local-user-data';
+import { SisLocalUserData, SisRefreshToken } from '../../models/sis-local-user-data';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SisAuthService } from './sis-auth.service';

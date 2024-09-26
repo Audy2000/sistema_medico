@@ -1,3 +1,4 @@
+/*
 import { BodCategoria } from "../models/bod-categoria";
 import { BodMarca } from "../models/bod-marca";
 import { BodUbicacion } from "../models/bod-ubicacion";
@@ -14,3 +15,4 @@ export interface BodProductoResourcesResponse{
     unidades_medidas:BodUnidadMedida[];
 
 }
+*/
