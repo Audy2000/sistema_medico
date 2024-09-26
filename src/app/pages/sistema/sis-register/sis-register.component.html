@@ -25,6 +25,7 @@
                                             <input class="form-control {{getControlClass('cedula')}}"
                                                 formControlName="cedula" id="inputNoCedula" type="text"
                                                 placeholder="Enter your first name" 
+                                                (blur)="consultaInfoPersona()"
                                                 
                                                 required>
                                             <label for="inputNoCedula">No. Cedula</label>

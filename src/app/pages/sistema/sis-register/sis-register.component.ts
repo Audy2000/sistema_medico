@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 import { SisGoogleAuthService } from '../../../core/services/auth-services/sis-google-auth.service';
 import { RouterLink } from '@angular/router';
 import { GoogleAuthResponse } from '../../../core/responses/google-auth-response';
+import { ftValidarCedulaEcuatoriana } from '../../../core/services/validaciones-services/ft-valida-cedula-ecuatoriana';
 
 @Component({
   selector: 'app-sis-register',
@@ -24,7 +25,13 @@ export class SisRegisterComponent {
   async consultaInfoPersona() {
     
     
-    const cedula = this.miFormulario.get('cedula')?.value;  
+    const cedula = this.miFormulario.get('cedula')?.value; 
+    if(cedula &&!ftValidarCedulaEcuatoriana(cedula)){
+      alert('Ingrese Un número de cedula Válido')
+      this.miFormulario.controls['cedula']?.setValue('')
+      return;
+    }
+    if(!cedula){return ;}
     const info = await this.registerService.getInfoPersona(cedula);
     const formCreado= this.createForm(info.apellidos,info.nombres,'',cedula,info.fechaNacimiento);
     this.miFormulario.setValue(formCreado);
